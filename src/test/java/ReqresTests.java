@@ -32,7 +32,7 @@ public class ReqresTests {
         System.out.println(String.valueOf(response.jsonPath().getString("")));
         System.out.println(String.valueOf(response.jsonPath().getInt("data.id")));
         assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(response.jsonPath().getString("data.id")).isEqualTo("2");
+        assertThat(response.jsonPath().getInt("data.id")).isEqualTo(2);
         assertThat(response.jsonPath().getString("data.email")).isEqualTo("janet.weaver@reqres.in");
         assertThat(response.jsonPath().getString("data.first_name")).isEqualTo("Janet");
         assertThat(response.jsonPath().getString("data.last_name")).isEqualTo("Weaver");
