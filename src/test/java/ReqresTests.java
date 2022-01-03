@@ -30,11 +30,9 @@ public class ReqresTests {
                 .statusCode(200)
                 .extract().response();
         System.out.println(String.valueOf(response.jsonPath().getString("")));
-        System.out.println(String.valueOf(response.jsonPath().getString("data")));
+        System.out.println(String.valueOf(response.jsonPath().getInt("data.id")));
         assertThat(response.statusCode()).isEqualTo(200);
-//        List<Response> responses = response.jsonPath().getList("data");
         assertThat(response.jsonPath().getString("data.id")).isEqualTo("2");
-//        assertThat(response.jsonPath().getString("id")).isEqualTo("2");
         assertThat(response.jsonPath().getString("data.email")).isEqualTo("janet.weaver@reqres.in");
         assertThat(response.jsonPath().getString("data.first_name")).isEqualTo("Janet");
         assertThat(response.jsonPath().getString("data.last_name")).isEqualTo("Weaver");
@@ -66,8 +64,7 @@ public class ReqresTests {
                 .contentType(ContentType.JSON)
                 .when()
                 .log().all()
-                .get("/api/users?pa" +
-                        "ge=2")
+                .get("/api/users?page=2")
                 .then()
                 .statusCode(200)
                 .extract().response();
@@ -76,12 +73,11 @@ public class ReqresTests {
         assertThat(response.jsonPath().getString("page")).isEqualTo("2");
         assertThat(response.jsonPath().getString("per_page")).isEqualTo("6");
         assertThat(response.jsonPath().getString("total")).isEqualTo("12");
-        assertThat(response.jsonPath().getString("total")).isEqualTo("12");
 
         List<User> users = response.jsonPath().getList("data", User.class);
         User firstUser = users.get(0);
 
-        assertThat(firstUser.getId()).isEqualTo("7");
+        assertThat(firstUser.getId()).isEqualTo(7);
         assertThat(firstUser.getEmail()).isEqualTo("michael.lawson@reqres.in");
         assertThat(firstUser.getFirstName()).isEqualTo("Michael");
         assertThat(firstUser.getLastName()).isEqualTo("Lawson");

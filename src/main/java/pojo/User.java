@@ -10,7 +10,7 @@ public class User {
     @JsonProperty(value="last_name")
     private String lastName;
 
-    private String id;
+    private int id;
     private String email;
     private String avatar;
 
@@ -22,7 +22,7 @@ public class User {
         return lastName;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
