@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -10,6 +11,7 @@ import pojo.User;
 
 import java.util.List;
 
+import static filters.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -22,6 +24,7 @@ public class ReqresTests {
     @Test
     void getUser(){
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .log().all()
@@ -45,6 +48,7 @@ public class ReqresTests {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .body(objectMapper.writeValueAsString(new Person("morpheus", "leader")))
@@ -61,6 +65,7 @@ public class ReqresTests {
     @Test
     void getUsersTest(){
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .log().all()
@@ -88,6 +93,7 @@ public class ReqresTests {
     @Test
     void deleteTest(){
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .delete("/api/users/2")
@@ -102,6 +108,7 @@ public class ReqresTests {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .body(objectMapper.writeValueAsString(new Person("morpheus", "zion resident")))
@@ -118,6 +125,7 @@ public class ReqresTests {
     @Test
     void getNotFound() {
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .log().all()
